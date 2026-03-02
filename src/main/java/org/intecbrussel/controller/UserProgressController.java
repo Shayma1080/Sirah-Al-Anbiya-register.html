@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/progress")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserProgressController {
 
@@ -40,6 +41,20 @@ public class UserProgressController {
         dto.setProgressPercentage(progress.getProgressPercentage());
 
         return dto;
+    }
+
+    @GetMapping
+    public UserProgressDTO getProgress(
+            @RequestParam Long userId,
+            @RequestParam Long prophetId){
+
+        UserProgress progress =
+                userProgressService.getProgress(userId, prophetId)
+                        .orElseGet(() ->
+                                userProgressService.updateProgress(userId, prophetId, 0)
+                        );
+
+        return UserProgressDTO.mapToDTO(progress);
     }
 
 

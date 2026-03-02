@@ -20,7 +20,7 @@ public class UserProgressDTO {
 
     private int progressPercentage;
 
-    public UserProgressDTO mapToDTO(UserProgress progress){
+    public static UserProgressDTO mapToDTO(UserProgress progress){
 
         UserProgressDTO dto = new UserProgressDTO();
 
