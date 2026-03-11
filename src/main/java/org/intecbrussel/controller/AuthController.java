@@ -1,6 +1,7 @@
 package org.intecbrussel.controller;
 
 import org.intecbrussel.dto.LoginRequest;
+import org.intecbrussel.dto.LoginResponseDTO;
 import org.intecbrussel.dto.RegisterRequest;
 import org.intecbrussel.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@RequestBody LoginRequest request) {
+    public LoginResponseDTO login(@RequestBody LoginRequest request) {
         String jwt = loginService.login(request.getUsername(), request.getPassword());
-        return new TokenResponse(jwt);
+        User user = authService.findByUsername(request.getUsername());
+
+        return new LoginResponseDTO(jwt, user.getId());
     }
 }
