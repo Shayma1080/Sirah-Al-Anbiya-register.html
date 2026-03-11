@@ -1,3 +1,5 @@
+const userId = localStorage.getItem("userId");
+
 async function getTotalProgress() {
     try {
         // lijst van prophetIds

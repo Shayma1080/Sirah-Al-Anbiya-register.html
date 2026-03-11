@@ -51,7 +51,8 @@ async function loadProgress() {
         let progressPercentage = 0;
         if (prophet.name !== "") {
             try {
-                const response = await fetch(`http://localhost:8080/api/progress?userId=1&prophetId=${prophet.id}`);
+                const userId = localStorage.getItem("userId"); // <-- haal de ingelogde user op
+                const response = await fetch(`http://localhost:8080/api/progress?userId=${userId}&prophetId=${prophet.id}`);
                 if (response.ok) {
                     const data = await response.json();
                     progressPercentage = data.progressPercentage || 0;

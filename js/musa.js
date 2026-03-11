@@ -29,7 +29,7 @@ const quizQuestions = [
 const totalQuestions = quizQuestions.length;
 let currentQuestion = 0;
 let score = 0;
-const userId = 1;       // jouw userId
+const userId = localStorage.getItem("userId");
 const prophetId = 3; // Musa
 
 
@@ -55,8 +55,6 @@ async function loadProgress() {
         console.error("Fout bij ophalen progress:", err);
     }
 }
-
-window.addEventListener("DOMContentLoaded", loadProgress);
 
 function showAudio() {
     document.getElementById("audioSection").style.display = "block";

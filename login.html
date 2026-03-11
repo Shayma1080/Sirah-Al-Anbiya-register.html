@@ -39,14 +39,16 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
             })
         });
 
+         const data = await response.json();
+
         if (response.ok) {
-            const data = await response.json();
             localStorage.setItem("token", data.token); // JWT opslaan
+            localStorage.setItem("userId", data.userId); // <-- NU userId opslaan
+            console.log("userId opgeslagen:", data.userId);
             alert("Login succesvol!");
             window.location.href = "index.html";
         } else {
-            const errorMsg = await response.text();
-            alert("Login mislukt: " + errorMsg);
+            alert("Login mislukt: " + data.message || "Onbekende fout");
         }
     } catch (error) {
         alert("Server fout: " + error);

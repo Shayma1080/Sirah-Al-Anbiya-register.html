@@ -28,15 +28,27 @@ const quizQuestions = [
     
 ];
 
+
 const totalQuestions = quizQuestions.length; // Totaal aantal vragen
 let currentQuestion = 0;
 let score = 0; // Hier houden we bij hoeveel vragen correct zijn
 
+
 // Functie om progress naar backend te sturen
 function saveProgress(score, prophetId) {
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+        alert("Je moet eerst inloggen!");
+        window.location.href = "login.html";
+        return;
+    }
     const progressPercentage = Math.round((score / totalQuestions) * 100);
-    fetch(`http://localhost:8080/api/progress?userId=1&prophetId=${prophetId}&progressPercentage=${progressPercentage}`, {
-        method: "POST"
+    fetch(`http://localhost:8080/api/progress?userId=${userId}&prophetId=${prophetId}&progressPercentage=${progressPercentage}`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+       }
     })
     .then(res => res.json())
     .then(data => {
@@ -97,6 +109,3 @@ function checkAnswer(selected) {
     currentQuestion++;
     showQuestion();
 }
-
-
-localStorage.setItem("token", data.token);
